@@ -30,4 +30,9 @@ public class TodoServiceImpl implements TodoService {
     public Optional<Todo> getById(Long id) {
         return todoDao.findById(id);
     }
+
+    @Override
+    public Todo update(Todo todo) {
+        return todoDao.save(todo);
+    }
 }
