@@ -31,9 +31,9 @@ public class TodoController {
         return new ResponseEntity(todoService.getById(id), HttpStatus.OK);
     }
 
+    // just for test
     @PutMapping(value = "/update")
     public ResponseEntity update(@RequestBody Todo todo) {
         return new ResponseEntity(todoService.update(todo), HttpStatus.OK);
     }
-
 }
