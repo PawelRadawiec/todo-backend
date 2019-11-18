@@ -35,4 +35,9 @@ public class TodoServiceImpl implements TodoService {
     public Todo update(Todo todo) {
         return todoDao.save(todo);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        todoDao.deleteById(id);
+    }
 }
