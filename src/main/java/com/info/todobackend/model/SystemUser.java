@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "system_user")
 @Getter @Setter @NoArgsConstructor
-public class User {
+public class SystemUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,10 +21,10 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column()
+    @Column(unique = true)
     private String login;
 
-    @Column()
+    @Column(unique = true)
     private String email;
 
     @Column()

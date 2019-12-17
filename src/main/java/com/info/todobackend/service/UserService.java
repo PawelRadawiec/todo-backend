@@ -1,8 +1,9 @@
 package com.info.todobackend.service;
 
-import com.info.todobackend.model.User;
+import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.repository.UserRepository;
 import com.info.todobackend.service.operations.UserOperations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,28 +12,31 @@ import java.util.List;
 public class UserService implements UserOperations {
 
     private UserRepository userDao;
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userDao) {
+    public UserService(UserRepository userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User create(User user) {
-        return userDao.save(user);
+    public SystemUser create(SystemUser systemUser) {
+        systemUser.setPassword(passwordEncoder.encode(systemUser.getPassword()));
+        return userDao.save(systemUser);
     }
 
     @Override
-    public User update(User user) {
-        return userDao.save(user);
+    public SystemUser update(SystemUser systemUser) {
+        return userDao.save(systemUser);
     }
 
     @Override
-    public User getById(Long id) {
+    public SystemUser getById(Long id) {
         return userDao.getOne(id);
     }
 
     @Override
-    public List<User> searchUser() {
+    public List<SystemUser> searchUser() {
         return userDao.findAll();
     }
 

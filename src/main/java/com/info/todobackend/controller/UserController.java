@@ -1,6 +1,6 @@
 package com.info.todobackend.controller;
 
-import com.info.todobackend.model.User;
+import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.service.operations.UserOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/user")
+@RequestMapping("/user")
 public class UserController {
 
     private UserOperations userOperations;
@@ -19,23 +19,23 @@ public class UserController {
         this.userOperations = userOperations;
     }
 
-    @PostMapping()
-    public ResponseEntity<User> create(@RequestBody User user){
-        return new ResponseEntity<>(userOperations.create(user), HttpStatus.OK);
+    @PostMapping(value = "/create")
+    public ResponseEntity<SystemUser> create(@RequestBody SystemUser systemUser){
+        return new ResponseEntity<>(userOperations.create(systemUser), HttpStatus.OK);
     }
 
     @PutMapping()
-    public ResponseEntity<User> update(@RequestBody User user){
-        return new ResponseEntity<>(userOperations.update(user), HttpStatus.OK);
+    public ResponseEntity<SystemUser> update(@RequestBody SystemUser systemUser){
+        return new ResponseEntity<>(userOperations.update(systemUser), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<User> getById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<SystemUser> getById(@PathVariable("id") Long id){
         return new ResponseEntity<>(userOperations.getById(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<List<User>> search(){
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<SystemUser>> search(){
         return new ResponseEntity<>(userOperations.searchUser(), HttpStatus.OK);
     }
 
