@@ -1,7 +1,7 @@
 package com.info.todobackend.controller;
 
 import com.info.todobackend.model.Todo;
-import com.info.todobackend.service.TodoService;
+import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/todo")
 public class TodoController {
 
-    private TodoService todoService;
+    private TodoOperations todoService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoOperations todoService) {
         this.todoService = todoService;
     }
 
