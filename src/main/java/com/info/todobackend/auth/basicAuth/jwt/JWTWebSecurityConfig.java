@@ -77,7 +77,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers(
                         HttpMethod.POST,
-                        authenticationPath
+                        authenticationPath,
+                        "/user/create"
                 )
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .and()
@@ -92,3 +93,19 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
+//  httpSecurity
+//          .authorizeRequests()
+//          .antMatchers("/user/create").permitAll()
+//          .and()
+//          .csrf().disable()
+//          .exceptionHandling()
+//          .authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint)
+//          .and()
+//          .sessionManagement()
+//          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//          .and()
+//          .authorizeRequests()
+//          .anyRequest().authenticated()
+//          .and()
+//          .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
