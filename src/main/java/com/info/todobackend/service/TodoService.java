@@ -1,6 +1,7 @@
 package com.info.todobackend.service;
 
-import com.info.todobackend.model.Todo;
+import com.info.todobackend.model.todo.Todo;
+import com.info.todobackend.repository.SubtaskRepository;
 import com.info.todobackend.repository.TodoRepository;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.stereotype.Service;
