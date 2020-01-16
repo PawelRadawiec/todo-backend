@@ -1,6 +1,6 @@
 package com.info.todobackend.controller;
 
-import com.info.todobackend.model.Todo;
+import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

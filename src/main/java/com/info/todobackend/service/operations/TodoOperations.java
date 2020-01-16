@@ -1,6 +1,6 @@
 package com.info.todobackend.service.operations;
 
-import com.info.todobackend.model.Todo;
+import com.info.todobackend.model.todo.Todo;
 
 import java.util.List;
 import java.util.Optional;
