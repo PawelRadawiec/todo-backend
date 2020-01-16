@@ -29,6 +29,9 @@ public class Todo extends InformationModel {
     @Column(name = "target_type")
     private LocalDate targetType;
 
+    @Column
+    private String author;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
