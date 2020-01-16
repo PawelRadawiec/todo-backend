@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "todos")
 @Getter @Setter
 @NoArgsConstructor
-public class Todo {
+public class Todo extends InformationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "todo_subtask")
 @Getter @Setter
 @NoArgsConstructor
-public class Subtask {
+public class Subtask extends InformationModel {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
