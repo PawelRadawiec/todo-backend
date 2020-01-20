@@ -2,8 +2,10 @@ package com.info.todobackend.service;
 
 import com.info.todobackend.helper.TodoHelper;
 import com.info.todobackend.model.todo.Todo;
+import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.repository.TodoRepository;
 import com.info.todobackend.service.operations.TodoOperations;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class TodoService implements TodoOperations {
     }
 
     @Override
-    public List<Todo> getAll() {
-        return todoDao.findAll();
+    public List<Todo> search(TodoFilter filter) {
+        return todoDao.findAll(Sort.by("ASC", "description"));
     }
 
     @Override

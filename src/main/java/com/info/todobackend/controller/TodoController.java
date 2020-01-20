@@ -1,10 +1,13 @@
 package com.info.todobackend.controller;
 
 import com.info.todobackend.model.todo.Todo;
+import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,13 +21,16 @@ public class TodoController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity create(@RequestBody Todo todo) {
-        return new ResponseEntity(todoService.create(todo), HttpStatus.OK);
+    public ResponseEntity<Todo> create(@RequestBody Todo todo) {
+        return new ResponseEntity<>(todoService.create(todo), HttpStatus.OK);
     }
 
     @GetMapping(value = "/todos")
-    public ResponseEntity getAll() {
-        return new ResponseEntity(todoService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Todo>> getAll(
+            @RequestParam(required = false) String direction,
+            @RequestParam(required = false) String sortBy
+    ) {
+        return new ResponseEntity<>(todoService.search(new TodoFilter(direction, sortBy)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -33,8 +39,8 @@ public class TodoController {
     }
 
     @PutMapping(value = "/update")
-    public ResponseEntity update(@RequestBody Todo todo) {
-        return new ResponseEntity(todoService.update(todo), HttpStatus.OK);
+    public ResponseEntity<Todo> update(@RequestBody Todo todo) {
+        return new ResponseEntity<>(todoService.update(todo), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete/{id}")
