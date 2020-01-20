@@ -7,6 +7,7 @@ import com.info.todobackend.repository.TodoRepository;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,10 @@ public class TodoService implements TodoOperations {
 
     @Override
     public List<Todo> search(TodoFilter filter) {
-        return todoDao.findAll(Sort.by("ASC", "description"));
+        if (StringUtils.isEmpty(filter.getSortBy())) {
+            return todoDao.findAll();
+        }
+        return todoDao.findAll(Sort.by(Sort.Direction.ASC, filter.getSortBy()));
     }
 
     @Override
