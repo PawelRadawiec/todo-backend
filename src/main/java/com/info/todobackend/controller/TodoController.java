@@ -28,9 +28,10 @@ public class TodoController {
     @GetMapping(value = "/todos")
     public ResponseEntity<List<Todo>> getAll(
             @RequestParam(required = false) String direction,
-            @RequestParam(required = false) String sortBy
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String description
     ) {
-        return new ResponseEntity<>(todoService.search(new TodoFilter(direction, sortBy)), HttpStatus.OK);
+        return new ResponseEntity<>(todoService.search(new TodoFilter(direction, sortBy, description)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

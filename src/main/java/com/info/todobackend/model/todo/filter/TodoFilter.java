@@ -10,4 +10,5 @@ import lombok.Setter;
 public class TodoFilter {
     private String direction;
     private String sortBy;
+    private String description;
 }
