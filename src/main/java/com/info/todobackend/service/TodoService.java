@@ -4,7 +4,6 @@ import com.info.todobackend.helper.TodoHelper;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.repository.TodoRepository;
-import com.info.todobackend.repository.specification.TodoSpecification;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,10 +30,10 @@ public class TodoService implements TodoOperations {
 
     @Override
     public List<Todo> search(TodoFilter filter) {
-        if(StringUtils.isEmpty(filter.getDescription())) {
+        if (StringUtils.isEmpty(filter.getDescription())) {
             return todoDao.findAll();
         }
-        return todoDao.findAll(TodoSpecification.getTodoByDescriptionSpec(filter.getDescription()));
+        return todoDao.findByDescriptionContaining(filter.getDescription());
     }
 
     @Override
