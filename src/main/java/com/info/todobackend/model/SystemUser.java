@@ -1,5 +1,7 @@
 package com.info.todobackend.model;
 
+import com.info.todobackend.validator.ValidEmail;
+import com.info.todobackend.validator.ValidLogin;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +18,6 @@ public class SystemUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
     @Column(name = "first_name")
     private String firstName;
 
@@ -25,15 +26,23 @@ public class SystemUser {
     private String lastName;
 
     @NotEmpty
+    @ValidLogin
     @Column(unique = true)
     private String login;
 
     @NotEmpty
+    @ValidEmail
     @Column(unique = true)
     private String email;
 
     @NotEmpty
     @Column()
     private String password;
+
+    @Column(name = "activation_column")
+    private String activationCode;
+
+    @Column
+    private Boolean active;
 
 }
