@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<SystemUser> create(@Valid @RequestBody SystemUser systemUser) {
+    public ResponseEntity<SystemUser> create(@RequestBody @Valid SystemUser systemUser) {
         return new ResponseEntity<>(userOperations.create(systemUser), HttpStatus.OK);
     }
 
     @PutMapping()
-    public ResponseEntity<SystemUser> update(@Valid @RequestBody SystemUser systemUser) {
+    public ResponseEntity<SystemUser> update(@RequestBody @Valid SystemUser systemUser) {
         return new ResponseEntity<>(userOperations.update(systemUser), HttpStatus.OK);
     }
 

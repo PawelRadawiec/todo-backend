@@ -4,7 +4,6 @@ import com.info.todobackend.helper.SystemUserHelper;
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.repository.UserRepository;
 import com.info.todobackend.service.operations.UserOperations;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

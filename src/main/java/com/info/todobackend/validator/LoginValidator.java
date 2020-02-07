@@ -2,13 +2,12 @@ package com.info.todobackend.validator;
 
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.repository.UserRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-@Component
+
 public class LoginValidator implements ConstraintValidator<ValidLogin, String> {
 
     private UserRepository dto;
@@ -22,7 +21,6 @@ public class LoginValidator implements ConstraintValidator<ValidLogin, String> {
 
     }
 
-    @Override
     public boolean isValid(String login, ConstraintValidatorContext constraintValidatorContext) {
         if (StringUtils.isEmpty(login)) {
             return true;
