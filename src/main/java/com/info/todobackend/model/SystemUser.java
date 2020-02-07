@@ -18,6 +18,7 @@ public class SystemUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
     @Column(name = "first_name")
     private String firstName;
 

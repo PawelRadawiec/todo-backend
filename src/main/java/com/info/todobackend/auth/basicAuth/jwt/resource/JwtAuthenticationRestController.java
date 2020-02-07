@@ -2,7 +2,6 @@ package com.info.todobackend.auth.basicAuth.jwt.resource;
 
 import com.info.todobackend.auth.basicAuth.jwt.JwtTokenUtil;
 import com.info.todobackend.auth.basicAuth.jwt.JwtUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +22,15 @@ public class JwtAuthenticationRestController {
 
     @Value("${jwt.http.request.header}")
     private String tokenHeader;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
     private UserDetailsService jwtInMemoryUserDetailsService;
+
+    public JwtAuthenticationRestController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsService jwtInMemoryUserDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtInMemoryUserDetailsService = jwtInMemoryUserDetailsService;
+    }
 
     @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
