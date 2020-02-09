@@ -1,8 +1,8 @@
 package com.info.todobackend.service;
 
 import com.info.todobackend.helper.SystemUserHelper;
-import com.info.todobackend.model.EmailDto;
 import com.info.todobackend.model.SystemUser;
+import com.info.todobackend.model.helper.EmailHelper;
 import com.info.todobackend.repository.UserRepository;
 import com.info.todobackend.service.operations.UserOperations;
 import org.springframework.stereotype.Service;
@@ -26,19 +26,16 @@ public class UserService implements UserOperations {
     @Override
     public SystemUser create(SystemUser systemUser) {
         userHelper.merge(systemUser);
-        // just for test purpose
-        // SystemUser savedUser = userDao.save(systemUser);
-        EmailDto dto = new EmailDto();
-        dto.setTo(systemUser.getEmail());
-        dto.setSubject("subject");
-        dto.setFrom("todo@app");
-        dto.setTemplateName("registration");
+        SystemUser savedUser = userDao.save(systemUser);
         try {
-            emailService.senEmail(dto);
+            emailService.senEmail(
+                    EmailHelper.prepareRegistrationMail(savedUser),
+                    EmailHelper.prepareRegistrationContext(savedUser)
+            );
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return systemUser;
+        return savedUser;
     }
 
     @Override

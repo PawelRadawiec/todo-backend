@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todo registration</title>
 </head>
 <body>
-    <p>
-        Hey
-        Click activation link in order to finish registration process
-    </p>
+Hey <p th:text="${name}"></p>
+<p> please click in activation link in order to finish registration process </p>
+<p th:text="${activationLink}"></p>
 </body>
 </html>

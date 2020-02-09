@@ -1,6 +1,7 @@
 package com.info.todobackend.service;
 
 import com.info.todobackend.model.EmailDto;
+import com.info.todobackend.model.helper.EmailHelper;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,12 @@ public class EmailService {
     }
 
 
-    public EmailDto senEmail(EmailDto email) throws MessagingException {
-        Context ctx = new Context();
-
+    public EmailDto senEmail(EmailDto email, Context context) throws MessagingException {
         MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         MimeMessageHelper message = prepareMessage(mimeMessage, email);
 
-        String htmlContent = this.templateEngine.process(email.getTemplateName(), ctx);
-        message.setText(htmlContent, true /* isHtml */);
+        String htmlContent = this.templateEngine.process(email.getTemplateName(), context);
+        message.setText(htmlContent, true);
         email.setEmailedMessage(htmlContent);
         this.mailSender.send(mimeMessage);
 
