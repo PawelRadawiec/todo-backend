@@ -89,6 +89,14 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .and()
                 .ignoring()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**")
+                .and()
+                .ignoring()
                 .antMatchers("/h2-console/**/**");//Should not be in Production!
     }
 
