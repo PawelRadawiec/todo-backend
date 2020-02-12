@@ -1,6 +1,7 @@
 package com.info.todobackend.service;
 
 import com.info.todobackend.helper.SystemUserHelper;
+import com.info.todobackend.model.Activation;
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.model.helper.EmailHelper;
 import com.info.todobackend.repository.UserRepository;
@@ -41,6 +42,17 @@ public class UserService implements UserOperations {
     @Override
     public SystemUser update(SystemUser systemUser) {
         return userDao.save(systemUser);
+    }
+
+    @Override
+    public Boolean activate(Activation activation) {
+        SystemUser user = userDao.findByActivationCode(activation.getActivationCode());
+        Boolean exist = (user != null);
+        if (exist) {
+            user.setActive(true);
+            update(user);
+        }
+        return exist;
     }
 
     @Override

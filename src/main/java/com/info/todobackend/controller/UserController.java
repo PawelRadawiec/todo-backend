@@ -1,5 +1,6 @@
 package com.info.todobackend.controller;
 
+import com.info.todobackend.model.Activation;
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.service.operations.UserOperations;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,11 @@ public class UserController {
     @PostMapping(value = "/create")
     public ResponseEntity<SystemUser> create(@RequestBody @Valid SystemUser systemUser) {
         return new ResponseEntity<>(userOperations.create(systemUser), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/activation")
+    public ResponseEntity<Boolean> activate(@RequestBody Activation activation) {
+        return new ResponseEntity<>(userOperations.activate(activation), HttpStatus.OK);
     }
 
     @PutMapping()

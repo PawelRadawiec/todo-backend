@@ -1,7 +1,6 @@
 package com.info.todobackend.service;
 
 import com.info.todobackend.model.EmailDto;
-import com.info.todobackend.model.helper.EmailHelper;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
