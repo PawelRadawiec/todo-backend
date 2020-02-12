@@ -18,7 +18,7 @@ public class EmailHelper {
     public static Context prepareRegistrationContext(SystemUser user) {
         Context context = new Context();
         context.setVariable("name", user.getFirstName().concat(" ".concat(user.getLastName())));
-        context.setVariable("activationLink", "http://localhost:4200/activationm na/".concat(user.getActivationCode()));
+        context.setVariable("activationLink", "http://localhost:4200/activation/".concat(user.getActivationCode()));
         return context;
     }
 
