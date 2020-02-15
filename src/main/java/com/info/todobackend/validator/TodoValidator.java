@@ -1,4 +1,4 @@
-package com.info.todobackend.validators;
+package com.info.todobackend.validator;
 
 import com.info.todobackend.model.todo.Todo;
 import org.springframework.stereotype.Component;
@@ -26,6 +26,7 @@ public class TodoValidator implements Validator {
         if (StringUtils.isEmpty(todo.getStatus())) {
             errors.rejectValue("status", "must_be_set","must be set");
         }
-
     }
+
+
 }

@@ -1,4 +1,6 @@
-package com.info.todobackend.validator;
+package com.info.todobackend.validator.annotations;
+
+import com.info.todobackend.validator.LoginValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -6,13 +8,14 @@ import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {EmailValidator.class})
+@Constraint(validatedBy = {LoginValidator.class})
 @Documented
-public @interface ValidEmail {
+public @interface ValidLogin {
 
-    String message() default "email must be unique";
+    String message() default "login must be unique";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

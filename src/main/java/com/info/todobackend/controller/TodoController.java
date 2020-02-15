@@ -1,25 +1,22 @@
 package com.info.todobackend.controller;
 
+import com.info.todobackend.controller.generic.GenericController;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.service.operations.TodoOperations;
-import com.info.todobackend.validators.TodoValidator;
+import com.info.todobackend.validator.TodoValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/todo")
-public class TodoController {
+public class TodoController extends GenericController {
 
     private TodoOperations todoService;
     private TodoValidator validator;
@@ -64,16 +61,5 @@ public class TodoController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
 
 }

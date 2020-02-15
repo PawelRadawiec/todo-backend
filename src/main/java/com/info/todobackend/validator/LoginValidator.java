@@ -2,6 +2,7 @@ package com.info.todobackend.validator;
 
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.repository.UserRepository;
+import com.info.todobackend.validator.annotations.ValidLogin;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
