@@ -17,8 +17,11 @@ public class Todo extends InformationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "todo_id", unique = true, nullable = false)
+    @Column(name = "todo_id")
     private Long id;
+
+    @Column
+    private String title;
 
     @Column
     private String description;
@@ -26,8 +29,11 @@ public class Todo extends InformationModel {
     @Column
     private Boolean done;
 
-    @Column(name = "target_type")
-    private LocalDate targetType;
+    @Column
+    private String status;
+
+    @Column(name = "target_date")
+    private LocalDate targetDate;
 
     @Column
     private String author;

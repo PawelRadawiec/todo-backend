@@ -3,11 +3,18 @@ package com.info.todobackend.controller;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.service.operations.TodoOperations;
+import com.info.todobackend.validators.TodoValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -15,13 +22,20 @@ import java.util.List;
 public class TodoController {
 
     private TodoOperations todoService;
+    private TodoValidator validator;
 
-    public TodoController(TodoOperations todoService) {
+    public TodoController(TodoOperations todoService, TodoValidator validator) {
         this.todoService = todoService;
+        this.validator = validator;
+    }
+
+    @InitBinder("todo")
+    public void initMerchantOnlyBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<Todo> create(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> create(@Valid @RequestBody Todo todo) {
         return new ResponseEntity<>(todoService.create(todo), HttpStatus.OK);
     }
 
@@ -49,4 +63,17 @@ public class TodoController {
         todoService.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+
 }
