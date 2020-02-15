@@ -1,27 +1,38 @@
 package com.info.todobackend.controller;
 
+import com.info.todobackend.controller.generic.GenericController;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.service.operations.TodoOperations;
+import com.info.todobackend.validator.TodoValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/todo")
-public class TodoController {
+public class TodoController extends GenericController {
 
     private TodoOperations todoService;
+    private TodoValidator validator;
 
-    public TodoController(TodoOperations todoService) {
+    public TodoController(TodoOperations todoService, TodoValidator validator) {
         this.todoService = todoService;
+        this.validator = validator;
+    }
+
+    @InitBinder("todo")
+    public void initMerchantOnlyBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<Todo> create(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> create(@Valid @RequestBody Todo todo) {
         return new ResponseEntity<>(todoService.create(todo), HttpStatus.OK);
     }
 
@@ -49,4 +60,6 @@ public class TodoController {
         todoService.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+
 }

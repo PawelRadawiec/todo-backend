@@ -1,7 +1,7 @@
 package com.info.todobackend.model;
 
-import com.info.todobackend.validator.ValidEmail;
-import com.info.todobackend.validator.ValidLogin;
+import com.info.todobackend.validator.annotations.ValidEmail;
+import com.info.todobackend.validator.annotations.ValidLogin;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

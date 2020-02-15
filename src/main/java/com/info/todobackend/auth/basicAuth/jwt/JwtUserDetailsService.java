@@ -22,7 +22,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         Optional<SystemUser> currentUser = Optional.ofNullable(userRepository.findSystemUserByLogin(username));
         JwtUserDetails userDetails = null;
-        if (currentUser.isPresent()) {
+        if (currentUser.isPresent() && currentUser.get().getActive()) {
             userDetails = JwtUserDetailsHelper.createJwtUserDetails(currentUser.get());
         }
         return userDetails;
