@@ -16,27 +16,27 @@ import java.util.Optional;
 public class TodoService implements TodoOperations {
 
     private TodoRepository todoDao;
-    private TodoEmRepository emRepository;
+    private TodoEmRepository todoEmRepository;
     private TodoHelper helper;
 
-    public TodoService(TodoRepository todoDao, TodoEmRepository emRepository, TodoHelper helper) {
+    public TodoService(TodoRepository todoDao, TodoEmRepository todoEmRepository, TodoHelper helper) {
         this.todoDao = todoDao;
-        this.emRepository = emRepository;
+        this.todoEmRepository = todoEmRepository;
         this.helper = helper;
     }
 
     @Override
     public Todo create(Todo todo) {
         helper.merge(todo);
-        return emRepository.save(todo);
+        return todoEmRepository.save(todo);
     }
 
     @Override
     public List<Todo> search(TodoFilter filter) {
         if (StringUtils.isEmpty(filter.getDescription())) {
-            return todoDao.findAll();
+            return todoEmRepository.getAll();
         }
-        return todoDao.findByDescriptionContaining(filter.getDescription());
+        return todoEmRepository.search(filter);
     }
 
     @Override
