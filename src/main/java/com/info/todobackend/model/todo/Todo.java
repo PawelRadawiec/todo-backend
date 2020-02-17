@@ -1,6 +1,8 @@
 package com.info.todobackend.model.todo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.info.todobackend.model.Project;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,5 +45,9 @@ public class Todo extends InformationModel {
     )
     @JsonManagedReference
     private List<Subtask> subtasks;
+
+    @ManyToOne
+    @JsonBackReference
+    private Project project;
 
 }
