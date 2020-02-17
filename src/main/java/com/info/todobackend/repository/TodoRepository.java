@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TodoRepository  extends JpaRepository<Todo, Long>, JpaSpecificationExecutor<Todo> {
+public interface TodoRepository extends JpaRepository<Todo, Long>, JpaSpecificationExecutor<Todo> {
     List<Todo> findByDescriptionContaining(String title);
 }

@@ -9,18 +9,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "todo_subtask")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Subtask extends InformationModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "todo_id", nullable = false)
+    @ManyToOne()
     @JsonBackReference
     private Todo todo;
 

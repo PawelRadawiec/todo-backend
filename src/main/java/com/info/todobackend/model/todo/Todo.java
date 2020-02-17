@@ -7,17 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "todos")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Todo extends InformationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "todo_id")
     private Long id;
 
     @Column
@@ -39,11 +39,9 @@ public class Todo extends InformationModel {
     private String author;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
             mappedBy = "todo"
     )
     @JsonManagedReference
-    private Set<Subtask> subtasks;
+    private List<Subtask> subtasks;
 
 }

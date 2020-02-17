@@ -3,6 +3,7 @@ package com.info.todobackend.service;
 import com.info.todobackend.helper.TodoHelper;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
+import com.info.todobackend.repository.entityManager.TodoEmRepository;
 import com.info.todobackend.repository.TodoRepository;
 import com.info.todobackend.service.operations.TodoOperations;
 import org.springframework.stereotype.Service;
@@ -15,17 +16,19 @@ import java.util.Optional;
 public class TodoService implements TodoOperations {
 
     private TodoRepository todoDao;
+    private TodoEmRepository emRepository;
     private TodoHelper helper;
 
-    public TodoService(TodoRepository todoDao, TodoHelper helper) {
+    public TodoService(TodoRepository todoDao, TodoEmRepository emRepository, TodoHelper helper) {
         this.todoDao = todoDao;
+        this.emRepository = emRepository;
         this.helper = helper;
     }
 
     @Override
     public Todo create(Todo todo) {
         helper.merge(todo);
-        return todoDao.save(todo);
+        return emRepository.save(todo);
     }
 
     @Override
