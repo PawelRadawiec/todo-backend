@@ -37,7 +37,7 @@ public class TodoEmRepository {
     }
 
     public List<Todo> getAll() {
-        TypedQuery<Todo> query = em.createQuery("select t from Todo", Todo.class);
+        TypedQuery<Todo> query = em.createQuery("select t from Todo t", Todo.class);
         return query.getResultList();
     }
 
