@@ -39,5 +39,10 @@ public class ProjectController extends GenericController {
         return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity search() {
+        return new ResponseEntity<>(service.search(), HttpStatus.OK);
+    }
+
 
 }

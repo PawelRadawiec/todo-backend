@@ -32,7 +32,7 @@ public class ProjectService implements ProjectOperations {
     }
 
     @Override
-    public List<Project> getAll() {
-        return null;
+    public List<Project> search() {
+        return repository.search();
     }
 }

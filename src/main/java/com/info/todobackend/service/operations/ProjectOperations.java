@@ -8,6 +8,6 @@ public interface ProjectOperations {
     Project save(Project project);
     Project update(Project project);
     Project getById(Long id);
-    List<Project> getAll();
+    List<Project> search();
 
 }

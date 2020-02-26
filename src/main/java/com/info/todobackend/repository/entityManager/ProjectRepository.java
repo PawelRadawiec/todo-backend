@@ -1,6 +1,7 @@
 package com.info.todobackend.repository.entityManager;
 
 import com.info.todobackend.model.Project;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -44,5 +47,13 @@ public class ProjectRepository {
         return em.find(Project.class, id);
     }
 
+    public List<Project> search() {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Project> criteriaQuery = builder.createQuery(Project.class);
+        Root<Project> root = criteriaQuery.from(Project.class);
+
+        TypedQuery<Project> query = em.createQuery(criteriaQuery.select(root));
+        return query.getResultList();
+    }
 
 }
