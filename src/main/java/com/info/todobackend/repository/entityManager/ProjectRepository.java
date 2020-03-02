@@ -9,9 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +42,14 @@ public class ProjectRepository {
     }
 
     public Project findById(Long id) {
-        return em.find(Project.class, id);
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Project> cq = builder.createQuery(Project.class);
+        Root<Project> root = cq.from(Project.class);
+        cq.where(
+                builder.equal(root.get("id"), id)
+        );
+        TypedQuery<Project> query = em.createQuery(cq);
+        return query.getResultList().get(0);
     }
 
     public List<Project> search() {
