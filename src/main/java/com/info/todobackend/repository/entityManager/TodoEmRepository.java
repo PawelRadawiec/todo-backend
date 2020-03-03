@@ -1,5 +1,6 @@
 package com.info.todobackend.repository.entityManager;
 
+import com.info.todobackend.model.Project;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import org.springframework.stereotype.Repository;
@@ -46,6 +47,16 @@ public class TodoEmRepository {
         criteriaQuery.where(like);
 
         return em.createQuery(criteriaQuery.select(root)).getResultList();
+    }
+
+    public List<Todo> getTodoByProjectId(Long id) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Todo> criteriaQuery = criteriaBuilder.createQuery(Todo.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        Join<Project, Todo> projectTodoJoin = projectRoot.join("todos");
+        criteriaQuery.select(projectTodoJoin).where(criteriaBuilder.equal(projectRoot.get("id"), id));
+
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
 

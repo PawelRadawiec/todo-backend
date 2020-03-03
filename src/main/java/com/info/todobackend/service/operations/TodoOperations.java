@@ -11,5 +11,6 @@ public interface TodoOperations {
     List<Todo> search(TodoFilter filter);
     Optional<Todo> getById(Long id);
     Todo update(Todo todo);
+    List<Todo> getTodoByProjectId(Long id);
     void deleteById(Long id);
 }

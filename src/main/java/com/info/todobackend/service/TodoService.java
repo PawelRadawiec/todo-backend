@@ -49,6 +49,10 @@ public class TodoService implements TodoOperations {
         return todoDao.save(todo);
     }
 
+    public List<Todo> getTodoByProjectId(Long id) {
+        return todoEmRepository.getTodoByProjectId(id);
+    }
+
     @Override
     public void deleteById(Long id) {
         todoDao.deleteById(id);

@@ -55,6 +55,11 @@ public class TodoController extends GenericController {
         return new ResponseEntity<>(todoService.update(todo), HttpStatus.OK);
     }
 
+    @GetMapping("/project/todo/{id}")
+    public ResponseEntity<List<Todo>> getTodoByProjectId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(todoService.getTodoByProjectId(id), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         todoService.deleteById(id);
