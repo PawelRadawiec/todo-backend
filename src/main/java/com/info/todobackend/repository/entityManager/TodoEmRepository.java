@@ -17,15 +17,12 @@ import java.util.List;
 public class TodoEmRepository {
 
     private EntityManager em;
-    private SubtaskEmRepository subtaskEmRepository;
 
-    public TodoEmRepository(EntityManager em, SubtaskEmRepository subtaskEmRepository) {
+    public TodoEmRepository(EntityManager em) {
         this.em = em;
-        this.subtaskEmRepository = subtaskEmRepository;
     }
 
     public Todo save(Todo todo) {
-        todo.getSubtasks().forEach(subtask -> subtaskEmRepository.save(subtask, todo));
         em.persist(todo);
         return todo;
     }

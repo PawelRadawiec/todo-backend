@@ -1,6 +1,7 @@
 package com.info.todobackend.model.todo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.info.todobackend.model.Project;
 import lombok.Getter;
@@ -41,7 +42,8 @@ public class Todo extends InformationModel {
     private String author;
 
     @OneToMany(
-            mappedBy = "todo"
+            mappedBy = "todo",
+            cascade = CascadeType.ALL
     )
     @JsonManagedReference
     private List<Subtask> subtasks;
