@@ -1,5 +1,6 @@
 package com.info.todobackend.validator;
 
+import com.info.todobackend.helper.TodoHelper;
 import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.repository.entityManager.TodoEmRepository;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class TodoValidator implements Validator {
@@ -43,13 +46,28 @@ public class TodoValidator implements Validator {
         if (StringUtils.isEmpty(todo.getTitle())) {
             return;
         }
-        Optional<Todo> todoByTitle = emRepository.findByTitle(todo.getTitle());
+        if (containsWhitespace(todo.getTitle())) {
+            errors.rejectValue("title", "wrong_value", "cannot contains whitespace");
+        }
+        validateTitleUniqueness(todo, errors);
+    }
+
+    private void validateTitleUniqueness(Todo todo, Errors errors) {
+        if (StringUtils.isEmpty(todo.getTitle()) || containsWhitespace(todo.getTitle())) {
+            return;
+        }
+        Optional<Todo> todoByTitle = emRepository.findByTitleAndProjectId(todo.getTitle(), todo.getProject().getId());
         if (todo.getId() != null && todoByTitle.isPresent() && (todo.getId().equals(todoByTitle.get().getId()))) {
             return;
         }
         if (todoByTitle.isPresent()) {
             errors.rejectValue("title", "must_be_unique", "must be unique");
         }
+    }
+
+    private Boolean containsWhitespace(String value) {
+        Pattern pattern = Pattern.compile("\\s");
+        return pattern.matcher(value).find();
     }
 
 

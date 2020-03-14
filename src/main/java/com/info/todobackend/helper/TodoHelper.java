@@ -15,7 +15,7 @@ public class TodoHelper {
     }
 
     private String createStatusCode(String title) {
-        return title.toLowerCase().replace(" ", "_");
+        return title.toLowerCase().replace("-", "_");
     }
     private String currentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -5,6 +5,7 @@ import com.info.todobackend.model.todo.Todo;
 import com.info.todobackend.model.todo.filter.TodoFilter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -63,6 +64,18 @@ public class TodoEmRepository {
         Root<Todo> root = criteriaQuery.from(Todo.class);
         criteriaQuery.where(
                 criteriaBuilder.equal(root.get("title"), title)
+        );
+        return em.createQuery(criteriaQuery).getResultList().stream().findFirst();
+    }
+
+    public Optional<Todo> findByTitleAndProjectId(String title, Long projectId) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Todo> criteriaQuery = criteriaBuilder.createQuery(Todo.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        Join<Project, Todo> projectTodoJoin = projectRoot.join("todos");
+        criteriaQuery.select(projectTodoJoin).where(criteriaBuilder.equal(projectRoot.get("id"), projectId));
+        criteriaQuery.where(
+                criteriaBuilder.equal(projectTodoJoin.get("title"), title)
         );
         return em.createQuery(criteriaQuery).getResultList().stream().findFirst();
     }
