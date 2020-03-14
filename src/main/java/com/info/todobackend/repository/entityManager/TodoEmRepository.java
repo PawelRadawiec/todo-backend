@@ -53,7 +53,10 @@ public class TodoEmRepository {
         CriteriaQuery<Todo> criteriaQuery = criteriaBuilder.createQuery(Todo.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
         Join<Project, Todo> projectTodoJoin = projectRoot.join("todos");
-        criteriaQuery.select(projectTodoJoin).where(criteriaBuilder.equal(projectRoot.get("id"), id));
+        criteriaQuery.select(projectTodoJoin).where(
+                criteriaBuilder.equal(projectRoot.get("id"), id)
+        );
+        criteriaQuery.orderBy(criteriaBuilder.asc(projectTodoJoin.get("createdAt")));
 
         return em.createQuery(criteriaQuery).getResultList();
     }
