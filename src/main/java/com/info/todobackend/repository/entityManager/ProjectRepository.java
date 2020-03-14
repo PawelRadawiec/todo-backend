@@ -1,7 +1,6 @@
 package com.info.todobackend.repository.entityManager;
 
 import com.info.todobackend.model.Project;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,16 +17,14 @@ import java.util.Optional;
 public class ProjectRepository {
 
     private EntityManager em;
-    private TodoEmRepository todoEm;
 
-    public ProjectRepository(EntityManager em, TodoEmRepository todoEm) {
+    public ProjectRepository(EntityManager em) {
         this.em = em;
-        this.todoEm = todoEm;
     }
 
     public Project save(Project project) {
         em.persist(project);
-        return findById(project.getId());
+        return findById(project.getId()).orElseGet(Project::new);
     }
 
     public Optional<Project> findByTitle(String title) {
@@ -41,7 +38,7 @@ public class ProjectRepository {
         return query.getResultList().stream().findFirst();
     }
 
-    public Project findById(Long id) {
+    public Optional<Project> findById(Long id) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Project> cq = builder.createQuery(Project.class);
         Root<Project> root = cq.from(Project.class);
@@ -49,7 +46,7 @@ public class ProjectRepository {
                 builder.equal(root.get("id"), id)
         );
         TypedQuery<Project> query = em.createQuery(cq);
-        return query.getResultList().get(0);
+        return query.getResultList().stream().findFirst();
     }
 
     public List<Project> search() {
@@ -60,5 +57,6 @@ public class ProjectRepository {
         TypedQuery<Project> query = em.createQuery(criteriaQuery.select(root));
         return query.getResultList();
     }
+
 
 }

@@ -6,8 +6,8 @@ import com.info.todobackend.model.todo.filter.TodoFilter;
 import com.info.todobackend.repository.entityManager.TodoEmRepository;
 import com.info.todobackend.repository.TodoRepository;
 import com.info.todobackend.service.operations.TodoOperations;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;

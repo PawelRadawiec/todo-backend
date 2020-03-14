@@ -6,6 +6,7 @@ import com.info.todobackend.service.operations.ProjectOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService implements ProjectOperations {
@@ -28,7 +29,7 @@ public class ProjectService implements ProjectOperations {
 
     @Override
     public Project getById(Long id) {
-        return repository.findById(id);
+        return repository.findById(id).orElseGet(Project::new);
     }
 
     @Override

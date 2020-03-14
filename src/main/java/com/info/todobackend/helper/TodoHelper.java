@@ -10,9 +10,13 @@ import org.springframework.stereotype.Component;
 public class TodoHelper {
 
     public void merge(Todo todo) {
+        todo.setStatus(createStatusCode(todo.getTitle()));
         todo.setAuthor(currentUserName());
     }
 
+    private String createStatusCode(String title) {
+        return title.toLowerCase().replace(" ", "_");
+    }
     private String currentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();

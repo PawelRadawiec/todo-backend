@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -54,6 +55,16 @@ public class TodoEmRepository {
         criteriaQuery.select(projectTodoJoin).where(criteriaBuilder.equal(projectRoot.get("id"), id));
 
         return em.createQuery(criteriaQuery).getResultList();
+    }
+
+    public Optional<Todo> findByTitle(String title) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Todo> criteriaQuery = criteriaBuilder.createQuery(Todo.class);
+        Root<Todo> root = criteriaQuery.from(Todo.class);
+        criteriaQuery.where(
+                criteriaBuilder.equal(root.get("title"), title)
+        );
+        return em.createQuery(criteriaQuery).getResultList().stream().findFirst();
     }
 
 
