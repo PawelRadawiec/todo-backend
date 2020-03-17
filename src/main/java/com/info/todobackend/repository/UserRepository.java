@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<SystemUser, Long> {
     SystemUser findSystemUserByLogin(@Param("login") String login);
     SystemUser findByEmail(@Param("email") String email);
     SystemUser findByActivationCode(@Param("activationCode") String activationCode);
+    SystemUser findByLogin(@Param("login") String login);
+
 }

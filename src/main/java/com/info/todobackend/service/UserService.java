@@ -7,6 +7,7 @@ import com.info.todobackend.model.helper.EmailHelper;
 import com.info.todobackend.repository.UserRepository;
 import com.info.todobackend.service.operations.UserOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -25,6 +26,7 @@ public class UserService implements UserOperations {
     }
 
     @Override
+    @Transactional
     public SystemUser create(SystemUser systemUser) {
         userHelper.merge(systemUser);
         SystemUser savedUser = userDao.save(systemUser);
@@ -58,6 +60,11 @@ public class UserService implements UserOperations {
     @Override
     public SystemUser getById(Long id) {
         return userDao.getOne(id);
+    }
+
+    @Override
+    public SystemUser findByLogin(String login) {
+        return userDao.findByLogin(login);
     }
 
     @Override
