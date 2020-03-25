@@ -1,6 +1,7 @@
 package com.info.todobackend.repository.entityManager;
 
 import com.info.todobackend.model.Project;
+import com.info.todobackend.model.SystemUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,11 +50,13 @@ public class ProjectRepository {
         return query.getResultList().stream().findFirst();
     }
 
-    public List<Project> search() {
+    public List<Project> search(String author) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Project> criteriaQuery = builder.createQuery(Project.class);
         Root<Project> root = criteriaQuery.from(Project.class);
-
+        criteriaQuery.where(
+                builder.equal(root.get("author"), author)
+        );
         TypedQuery<Project> query = em.createQuery(criteriaQuery.select(root));
         return query.getResultList();
     }

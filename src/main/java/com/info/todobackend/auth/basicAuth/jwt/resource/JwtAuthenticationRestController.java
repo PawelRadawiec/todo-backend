@@ -1,7 +1,6 @@
 package com.info.todobackend.auth.basicAuth.jwt.resource;
 
 import com.info.todobackend.auth.basicAuth.jwt.JwtTokenUtil;
-import com.info.todobackend.auth.basicAuth.jwt.JwtUserDetails;
 import com.info.todobackend.model.SystemUser;
 import com.info.todobackend.service.UserService;
 import org.springframework.beans.factory.annotation.Value;

@@ -30,4 +30,6 @@ public class Project extends InformationModel {
     @JsonManagedReference
     private List<Todo> todos = new ArrayList<>();
 
+    private String author;
+
 }
